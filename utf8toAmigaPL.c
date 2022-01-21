@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     if (argc != 3)
     {
         printf("Wrong number of parameters!\n");
-        printf("usage:\n %s UTF8-txt-input-file amigaPL-txt-outputfile\n", __FILE__);
+        printf("usage:\n %s UTF8-txt-input-file amigaPL-txt-outputfile\n", __PRG_FILE__);
         return 0;
     }
 

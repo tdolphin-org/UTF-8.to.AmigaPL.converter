@@ -1,7 +1,7 @@
 PRG = utf8toAmigaPL
 
 CC = gcc
-CFLAGS = -D__FILE__=\"$(PRG)\"
+CFLAGS = -D__PRG_FILE__=\"$(PRG)\"
 LFLAGS =
 
 OBJ = utf8toAmigaPL.o
@@ -17,4 +17,4 @@ $(PRG): $(OBJ)
 
 clean:
 	rm -f *.o
-	rm -f PRG
+	rm -f $(PRG)
