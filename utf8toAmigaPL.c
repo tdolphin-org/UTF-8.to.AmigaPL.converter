@@ -45,6 +45,23 @@
 #define UTF8_RIGHT_DOUBLE_QUOTATION_MARK 0x9E
 #define UTF8_HORIZONTAL_ELLIPSIS 0xA6
 
+// UTF-8 BOM
+const int UTF8BOM[] = { 0xEF, 0xBB, 0xBF };
+
+void skipUTF8BOMIfExists(FILE *fileIn)
+{
+    int oneChar;
+    for (int i = 0; i < sizeof(UTF8BOM)/ sizeof(int); i++)
+    {
+        oneChar = fgetc(fileIn);
+        if (feof(fileIn) || oneChar != UTF8BOM[i])
+        {
+            fseek(fileIn, SEEK_SET, 0);
+            return;
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     if (argc != 3)
@@ -57,6 +74,8 @@ int main(int argc, char *argv[])
     FILE *fileIn = fopen(argv[1], "r");
     if (fileIn)
     {
+        skipUTF8BOMIfExists(fileIn);
+
         FILE *fileOut = fopen(argv[2], "w+");
         if (fileOut)
         {
