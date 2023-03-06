@@ -40,9 +40,10 @@
 #define UTF8_x 0xBA
 #define UTF8_z 0xBC
 
+// prefix: 0xE2 0x80 0xXX
 #define UTF8_LEFT_DOUBLE_QUOTATION_MARK 0x9C
 #define UTF8_RIGHT_DOUBLE_QUOTATION_MARK 0x9E
-
+#define UTF8_HORIZONTAL_ELLIPSIS 0xA6
 
 int main(int argc, char *argv[])
 {
@@ -162,13 +163,16 @@ int main(int argc, char *argv[])
                                     case UTF8_RIGHT_DOUBLE_QUOTATION_MARK:
                                         fputc(AMIGA_DOUBLE_QUOTATION_MARK, fileOut);
                                         break;
+                                    case UTF8_HORIZONTAL_ELLIPSIS:
+                                        fputs("...", fileOut);
+                                        break;
                                 }
+                                break;
                         }
                         break;
                     default:
                         fputc(oneChar, fileOut);
                 }
-
             }
             fclose(fileOut);
         }
