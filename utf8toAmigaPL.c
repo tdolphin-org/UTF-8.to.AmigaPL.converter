@@ -47,6 +47,8 @@
 #define UTF8_DOUBLE_HIGH_REVERSED9_QUOTATION_MARK 0x9F
 #define UTF8_HORIZONTAL_ELLIPSIS 0xA6
 
+#define CR  0x0D // Carriage Return
+
 // UTF-8 BOM
 const int UTF8BOM[] = { 0xEF, 0xBB, 0xBF };
 
@@ -90,6 +92,8 @@ int main(int argc, char *argv[])
 
                 switch(oneChar)
                 {
+                    case CR:
+                        break; // ignore CR
                     case 0xC3:
                         oneChar = fgetc(fileIn);
                         if (feof(fileIn))
