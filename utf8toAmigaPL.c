@@ -42,7 +42,9 @@
 
 // prefix: 0xE2 0x80 0xXX
 #define UTF8_LEFT_DOUBLE_QUOTATION_MARK 0x9C
-#define UTF8_RIGHT_DOUBLE_QUOTATION_MARK 0x9E
+#define UTF8_RIGHT_DOUBLE_QUOTATION_MARK 0x9D
+#define UTF8_DOUBLE_LOW9_QUOTATION_MARK 0x9E
+#define UTF8_DOUBLE_HIGH_REVERSED9_QUOTATION_MARK 0x9F
 #define UTF8_HORIZONTAL_ELLIPSIS 0xA6
 
 // UTF-8 BOM
@@ -180,6 +182,8 @@ int main(int argc, char *argv[])
                                 {
                                     case UTF8_LEFT_DOUBLE_QUOTATION_MARK:
                                     case UTF8_RIGHT_DOUBLE_QUOTATION_MARK:
+                                    case UTF8_DOUBLE_LOW9_QUOTATION_MARK:
+                                    case UTF8_DOUBLE_HIGH_REVERSED9_QUOTATION_MARK:
                                         fputc(AMIGA_DOUBLE_QUOTATION_MARK, fileOut);
                                         break;
                                     case UTF8_HORIZONTAL_ELLIPSIS:
