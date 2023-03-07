@@ -1,61 +1,17 @@
+#include "utf8toAmigaPL.h"
+
 #include <stdio.h>
+#include <string.h>
 
-#define AMIGAPL_A 194
-#define AMIGAPL_C 202
-#define AMIGAPL_E 203
-#define AMIGAPL_L 206
-#define AMIGAPL_N 207
-#define AMIGAPL_O 211
-#define AMIGAPL_S 212
-#define AMIGAPL_X 218
-#define AMIGAPL_Z 219
-#define AMIGAPL_a 226
-#define AMIGAPL_c 234
-#define AMIGAPL_e 235
-#define AMIGAPL_l 238
-#define AMIGAPL_n 239
-#define AMIGAPL_o 243
-#define AMIGAPL_s 244
-#define AMIGAPL_x 250
-#define AMIGAPL_z 251
-
-#define AMIGA_DOUBLE_QUOTATION_MARK 0x22
-
-#define UTF8_A 0x84
-#define UTF8_C 0x86
-#define UTF8_E 0x98
-#define UTF8_L 0x81
-#define UTF8_N 0x83
-#define UTF8_O 0x93
-#define UTF8_S 0x9A
-#define UTF8_X 0xB9
-#define UTF8_Z 0xBB
-#define UTF8_a 0x85
-#define UTF8_c 0x87
-#define UTF8_e 0x99
-#define UTF8_l 0x82
-#define UTF8_n 0x84
-#define UTF8_o 0xB3
-#define UTF8_s 0x9B
-#define UTF8_x 0xBA
-#define UTF8_z 0xBC
-
-// prefix: 0xE2 0x80 0xXX
-#define UTF8_LEFT_DOUBLE_QUOTATION_MARK 0x9C
-#define UTF8_RIGHT_DOUBLE_QUOTATION_MARK 0x9D
-#define UTF8_DOUBLE_LOW9_QUOTATION_MARK 0x9E
-#define UTF8_DOUBLE_HIGH_REVERSED9_QUOTATION_MARK 0x9F
-#define UTF8_HORIZONTAL_ELLIPSIS 0xA6
-
-#define CR  0x0D // Carriage Return
+#define FILE_SUFFIX ".apl"
 
 // UTF-8 BOM
-const int UTF8BOM[] = { 0xEF, 0xBB, 0xBF };
+const int UTF8BOM[] = {0xEF, 0xBB, 0xBF};
 
 void skipUTF8BOMIfExists(FILE *fileIn)
 {
     int oneChar;
-    for (int i = 0; i < sizeof(UTF8BOM)/ sizeof(int); i++)
+    for (int i = 0; i < sizeof(UTF8BOM) / sizeof(int); i++)
     {
         oneChar = fgetc(fileIn);
         if (feof(fileIn) || oneChar != UTF8BOM[i])
@@ -66,12 +22,22 @@ void skipUTF8BOMIfExists(FILE *fileIn)
     }
 }
 
+void help()
+{
+    printf("Wrong number of parameters!\n");
+    printf("usage:\n"
+            " " __PRG_FILE__ " [input-file] [output-file]\n"
+            " [input-file] - input file name to convert (with UTF8 content)\n"
+            " [output-file] - optional converted output file name (with AmigaPL content), be default output is [input-file] with '.apl' suffix\n"
+            "example:\n"
+            " " __PRG_FILE__ " file.UTF8.txt file.AmigaPL.txt\n");
+}
+
 int main(int argc, char *argv[])
 {
-    if (argc != 3)
+    if (argc != 3 && argc != 2)
     {
-        printf("Wrong number of parameters!\n");
-        printf("usage:\n %s UTF8txtInputFile AmigaPLtxtOutputFile\n", __PRG_FILE__);
+        help();
         return 0;
     }
 
@@ -80,7 +46,11 @@ int main(int argc, char *argv[])
     {
         skipUTF8BOMIfExists(fileIn);
 
-        FILE *fileOut = fopen(argv[2], "w+");
+        int len = (argc == 3) ? strlen(argv[2]) : (strlen(argv[1]) + strlen(FILE_SUFFIX));
+        char outputFileName[len + 1];
+        sprintf(outputFileName, "%s%s", argc == 3 ? argv[2] : argv[1], argc == 3 ? "" : FILE_SUFFIX);
+
+        FILE *fileOut = fopen(outputFileName, "w+");
         if (fileOut)
         {
             int oneChar;
@@ -90,7 +60,7 @@ int main(int argc, char *argv[])
                 if (feof(fileIn))
                     break;
 
-                switch(oneChar)
+                switch (oneChar)
                 {
                     case CR:
                         break; // ignore CR
@@ -98,7 +68,7 @@ int main(int argc, char *argv[])
                         oneChar = fgetc(fileIn);
                         if (feof(fileIn))
                             break;
-                        switch(oneChar)
+                        switch (oneChar)
                         {
                             case UTF8_O: // Ó
                                 fputc(AMIGAPL_O, fileOut);
@@ -112,7 +82,7 @@ int main(int argc, char *argv[])
                         oneChar = fgetc(fileIn);
                         if (feof(fileIn))
                             break;
-                        switch(oneChar)
+                        switch (oneChar)
                         {
                             case UTF8_A: // Ą
                                 fputc(AMIGAPL_A, fileOut);
@@ -138,7 +108,7 @@ int main(int argc, char *argv[])
                         oneChar = fgetc(fileIn);
                         if (feof(fileIn))
                             break;
-                        switch(oneChar)
+                        switch (oneChar)
                         {
                             case UTF8_L: // Ł
                                 fputc(AMIGAPL_L, fileOut);
@@ -176,13 +146,13 @@ int main(int argc, char *argv[])
                         oneChar = fgetc(fileIn);
                         if (feof(fileIn))
                             break;
-                        switch(oneChar)
+                        switch (oneChar)
                         {
                             case 0x80:
                                 oneChar = fgetc(fileIn);
                                 if (feof(fileIn))
                                     break;
-                                switch(oneChar)
+                                switch (oneChar)
                                 {
                                     case UTF8_LEFT_DOUBLE_QUOTATION_MARK:
                                     case UTF8_RIGHT_DOUBLE_QUOTATION_MARK:
