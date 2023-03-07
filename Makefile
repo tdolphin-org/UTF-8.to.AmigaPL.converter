@@ -1,7 +1,7 @@
 PRG = utf8toAmigaPL
 
 CC = gcc
-CFLAGS = -D__PRG_FILE__=\"$(PRG)\"
+CFLAGS = -D__PRG_FILE__=\"$(PRG)\" -O3
 LFLAGS =
 
 OBJ = utf8toAmigaPL.o
