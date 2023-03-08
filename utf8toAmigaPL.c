@@ -8,6 +8,11 @@
 // UTF-8 BOM
 const int UTF8BOM[] = {0xEF, 0xBB, 0xBF};
 
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+static const char *VERSION = "$VER: " __PRG_FILE__ " " __PRG_VERSION__;
+#pragma GCC pop_options
+
 void skipUTF8BOMIfExists(FILE *fileIn)
 {
     int oneChar;
