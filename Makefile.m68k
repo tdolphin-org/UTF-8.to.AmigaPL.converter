@@ -1,13 +1,17 @@
 #
-# makefile for host:Linux -> taget:Linux
+# makefile for host:Linux -> taget:AmigaOS.68k
+#
+# requires: https://github.com/bebbo/amiga-gcc
+#
+# usage: make -f Makefile.m68k
 #
 
 PRG = utf8toAmigaPL
 VER = 0.1.0
 
-CC = gcc
+CC = m68k-amigaos-gcc
 CFLAGS = -D__PRG_FILE__=\"$(PRG)\" -D__PRG_VERSION__=\"$(VER)\" -O3
-LFLAGS =
+LFLAGS = -noixemul
 
 OBJ = utf8toAmigaPL.o
 
@@ -18,7 +22,6 @@ all: $(PRG)
 
 $(PRG): $(OBJ)
 	$(CC) -o $@ $^ $(LFLAGS)
-	chmod +x $(PRG)
 
 clean:
 	rm -f *.o
