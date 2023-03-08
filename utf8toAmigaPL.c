@@ -180,14 +180,14 @@ int main(int argc, char *argv[])
         }
         else
         {
-            printf("Open file '%s' failed!\n", argv[2]);
+            printf("Open output file '%s' failed!\n", outputFileName);
         }
 
         fclose(fileIn);
     }
     else
     {
-        printf("Open file '%s' failed!\n", argv[1]);
+        printf("Open input file '%s' failed!\n", argv[1]);
     }
 
     return 0;
