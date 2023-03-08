@@ -2,8 +2,7 @@
 # makefile for host:Linux -> taget:Linux
 #
 
-PRG = utf8toAmigaPL
-VER = 0.1.0
+include makefile.prg.mk
 
 CC = gcc
 CFLAGS = -D__PRG_FILE__=\"$(PRG)\" -D__PRG_VERSION__=\"$(VER)\" -O3

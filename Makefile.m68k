@@ -6,8 +6,7 @@
 # usage: make -f Makefile.m68k
 #
 
-PRG = utf8toAmigaPL
-VER = 0.1.0
+include makefile.prg.mk
 
 CC = m68k-amigaos-gcc
 CFLAGS = -D__PRG_FILE__=\"$(PRG)\" -D__PRG_VERSION__=\"$(VER)\" -O3
