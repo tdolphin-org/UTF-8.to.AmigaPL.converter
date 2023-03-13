@@ -32,8 +32,8 @@ void help()
     printf("Wrong number of parameters!\n");
     printf("usage:\n"
             " " __PRG_FILE__ " [input-file] [output-file]\n"
-            " [input-file] - input file name to convert (with UTF8 content)\n"
-            " [output-file] - optional converted output file name (with AmigaPL content), be default output is [input-file] with '.apl' suffix\n"
+            " [input-file] - input file to convert (with UTF8 content)\n"
+            " [output-file] - optional output file (with AmigaPL content), be default output is [input-file] with '.apl' suffix\n"
             "example:\n"
             " " __PRG_FILE__ " file.UTF8.txt file.AmigaPL.txt\n");
 }
