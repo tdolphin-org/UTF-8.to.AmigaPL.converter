@@ -1,2 +1,2 @@
 PRG = utf8toAmigaPL
-VER = 0.1.0
+VER = 0.1.1
