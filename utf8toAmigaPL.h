@@ -48,6 +48,6 @@
 #define UTF8_DOUBLE_HIGH_REVERSED9_QUOTATION_MARK 0x9F
 #define UTF8_HORIZONTAL_ELLIPSIS 0xA6
 
-#define CR  0x0D // Carriage Return
+#define CR 0x0D // Carriage Return
 
 #endif // UTF8TOAMIGAPL_H
